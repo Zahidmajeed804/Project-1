@@ -82,3 +82,4 @@ app.delete("/api/users/:id", (req, res) => {
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 // PATCH AND DELETE REQUEST ASSIGNMENT
+// PATCH AND DELETE REQUEST ASSIGNMENT
