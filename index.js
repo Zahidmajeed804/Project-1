@@ -1,5 +1,4 @@
 const express = require("express");
-const users = require("./MOCK_DATA.json");
 const mongoose = require("mongoose");
 const fs = require("fs");
 
@@ -12,26 +11,29 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("Mongo Error", err));
 // Schema
-const userSchema = new mongoose.Schema({
-  first_name: {
-    type: String,
-    required: true,
+const userSchema = new mongoose.Schema(
+  {
+    first_name: {
+      type: String,
+      required: true,
+    },
+    last_name: {
+      type: String,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    jobTitle: {
+      type: String,
+    },
+    gender: {
+      type: String,
+    },
   },
-  last_name: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  jobTitle: {
-    type: String,
-  },
-  gender: {
-    type: String,
-  },
-});
+  { timestamps: true },
+);
 
 //Schema
 const User = mongoose.model("user", userSchema);
@@ -56,10 +58,6 @@ app.use((req, res, next) => {
   console.log("Hello from Middleware 2", req.myUserName);
   next();
 });
-// Middleware 3 => Practice 2
-// app.use((req, res, next) => {
-//   return res.json("Hello");
-// });
 
 //Routes
 app.get("/api/users", (req, res) => {
@@ -87,13 +85,13 @@ app.get("/api/users", (req, res) => {
 //   return res.json(user);
 // });
 // 1. GET ALL USERS (HTML VIEW)
-app.get("/users", (req, res) => {
+app.get("/users", async (req, res) => {
+  const allDbUsers = await User.find({});
   const html = `
-  <>
-  ${users
-    .map((user) => `<li>${user.first_name} ${user.last_name}</li>`)
-    .join("")} 
-  `;
+  <ul>
+  ${allDbUsers.map((user) => `<li> ${user.email}</li>`).join("")} 
+ 
+ </ul> `;
   res.send(html);
 });
 
@@ -134,7 +132,6 @@ app.post("/api/users", async (req, res) => {
     gender: body.gender,
     jobTitle: body.jobTitle,
   });
-  console.log(result);
   return res.status(201).json({ msg: "Success" });
 
   // users.push({ ...body, id: users.length + 1 });

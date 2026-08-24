@@ -6,3 +6,9 @@
 1787579254857:::1: GET: /api/users
 1787579269206:::1: POST: /api/users
 1787579519728:::1: POST: /api/users
+1787581488863:::1: POST: /api/users
+1787581537933:::1: POST: /api/users
+1787581785894:::1: GET: /users
+1787581848716:::1: GET: /users
+1787581850211:::1: GET: /users
+1787581934198:::1: GET: /users
