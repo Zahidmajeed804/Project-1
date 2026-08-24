@@ -92,12 +92,13 @@ app
     //TODO: Edit users with id
     await User.findByIdAndUpdate(req.params.id, { last_name: "Changed" });
     return res.json({ status: "Success" });
-  });
+  })
 
-//   .delete((req, res) => {
-//     //TODO: Delete the users with id
-//     return res.json({ status: "pending" });
-//   });
+  .delete(async (req, res) => {
+    //TODO: Delete the users with id
+    await User.findByIdAndDelete(req.params.id);
+    return res.json({ status: "Success" });
+  });
 // 2. CREATE USER
 app.post("/api/users", async (req, res) => {
   const body = req.body;
