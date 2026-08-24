@@ -59,31 +59,16 @@ app.use((req, res, next) => {
   next();
 });
 
-//Routes
-app.get("/api/users", (req, res) => {
+// Rest API
+app.get("/api/users", async (req, res) => {
+  const allDbUsers = await User.find({});
+
   res.setHeader("X-MyName", "Zahid"); //Custom Header
   // Always add X to custom headers
   console.log("Hello from Route", req.myUserName);
-  res.json(users);
+  res.json(allDbUsers);
 });
 
-// app.get("/api/users/:id", (req, res) => {
-//   const id = Number(req.params.id);
-//   const user = users.find((user) => user.id === id);
-//   return res.json(user);
-// });
-
-// app.get("/api/users/:gender", (req, res) => {
-//   const gender = req.params.gender;
-//   const user = users.find((user) => user.gender === gender);
-//   return res.json(user);
-// });
-
-// app.get("/api/users/:id", (req, res) => {
-//   const id = req.params.id;
-//   const user = users.find((users) => users.id === id);
-//   return res.json(user);
-// });
 // 1. GET ALL USERS (HTML VIEW)
 app.get("/users", async (req, res) => {
   const allDbUsers = await User.find({});
@@ -97,15 +82,16 @@ app.get("/users", async (req, res) => {
 
 app
   .route("/api/users/:id")
-  .get((req, res) => {
-    const id = Number(req.params.id);
-    const user = users.find((users) => users.id === id);
+  .get(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ error: "User not found" });
     return res.json(user);
   })
 
-  .patch((req, res) => {
+  .patch(async (req, res) => {
     //TODO: Edit users with id
-    return res.json({ status: "pending" });
+    await User.findByIdAndUpdate(req.params.id, { last_name: "Changed" });
+    return res.json({ status: "Success" });
   });
 
 //   .delete((req, res) => {
