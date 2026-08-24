@@ -16,3 +16,8 @@ POST /users - Create ne users
 Patch /users/1 - Edit the user with ID 1
 
 DELETE /users/1 - Delete the user with  ID 1
+
+Schema - Define the Structure
+    Schema - Model
+    Using MOdel we do CRUD operations
+    
