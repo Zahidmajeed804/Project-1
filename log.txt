@@ -1,0 +1,8 @@
+1787328492965:::1: GET: /api/users
+1787328499115:::1: GET: /api/users/1
+1787564832457:::1: GET: /users
+1787564832625:::1: GET: /favicon.ico
+1787566610497:::1: GET: /api/users/1
+1787579254857:::1: GET: /api/users
+1787579269206:::1: POST: /api/users
+1787579519728:::1: POST: /api/users
