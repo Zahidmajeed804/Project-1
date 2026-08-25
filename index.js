@@ -4,19 +4,18 @@ const fs = require("fs");
 const { connectMongoDb } = require("./connection");
 const userRouter = require("./routes/user");
 const { logReqRes } = require("./middlewares");
+const User = require("./models/user");
 
 const app = express();
 const PORT = 8000;
 
 // Connection
-connectMongoDb("mongodb:127.0.0.1:27017/youtube-app-1");
+connectMongoDb("mongodb://localhost:27017/youtube-app-1");
 //Schema
-const User = mongoose.model("user", userSchema);
 
 // Middleware - Plugin
 app.use(express.urlencoded({ extended: false }));
 // Middleware 1 => Through video
-app.use(logReqRes(log.txt));
 
 // Middleware 2 => Practice 1
 app.use((req, res, next) => {
