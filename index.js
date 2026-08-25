@@ -37,6 +37,7 @@ app.get("/api/users", async (req, res) => {
 // 1. GET ALL USERS (HTML VIEW)
 
 app.use("/user", userRouter);
+
 // Will use POSTMAN for POST PATCH DELETE
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
